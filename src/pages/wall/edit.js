@@ -19,7 +19,7 @@ import yx_img_2 from 'images/wall/zsq_img_dqqyx_two.png';
 import yx_img_3 from 'images/wall/zsq_img_dqqyx_three.png';
 
 import Bread from 'components/global/bread';
-import UploadImg from 'components/global/uploadImg';
+import UploadBtn from 'components/global/uploadBtn';
 import Btns from 'components/global/btns'
 import config from 'base/config.json';
 import api from 'api/wall.js'
@@ -192,7 +192,7 @@ class Wall extends Component{
                 </Item>
                 <Item title='AR 识别图'>
                     <div className='fl'>
-                        <img style={{width:'384px',height:'222px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
+                        <img style={{maxWidth:'384px',maxHeight:'560px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
                         <div>
                             <span style={{color:'#E21918'}}>*</span>
                             <span>识别图要求：请上传图纹较为丰富，主图纹与背景对比度强烈的图作为识别图</span>
@@ -200,7 +200,7 @@ class Wall extends Component{
                     </div>
                     <div className={style.sbR + ' fl'}>
                         <div style={{marginTop:'98px'}}>
-                            <UploadImg getUrl={(res)=>{this.setState({imgUrl:res})}}/>
+                            <UploadBtn callback={(res)=>{this.setState({imgUrl:res})}}/>
                         </div>
                     </div>
                 </Item>
@@ -209,7 +209,7 @@ class Wall extends Component{
                         <Col span={8}>
                             <Row>
                                 <Col span={10}>游戏时长：</Col>
-                                <Col span={7}><Input name='time' value={time} onChange={(e)=>{this.onInput(e)}} addonAfter="秒"/></Col>
+                                <Col span={7}><Input maxLength={3} name='time' value={time} onChange={(e)=>{this.onInput(e)}} addonAfter="秒"/></Col>
                             </Row>
                         </Col>
                         <Col span={14}>
@@ -220,13 +220,13 @@ class Wall extends Component{
                                <Col span={8}>
                                     <Row>
                                         <Col span={10}>气球A积分:</Col>
-                                        <Col span={12}><Input name='scoreA' value={scoreA} onChange={(e)=>{this.onInput(e)}} /></Col>
+                                        <Col span={12}><Input maxLength={3} name='scoreA' value={scoreA} onChange={(e)=>{this.onInput(e)}} /></Col>
                                     </Row>
                                </Col>
                                <Col span={8}>
                                     <Row>
                                         <Col span={10}>气球B积分:</Col>
-                                        <Col span={12}><Input name='scoreB' value={scoreB} onChange={(e)=>{this.onInput(e)}}/></Col>
+                                        <Col span={12}><Input maxLength={3} name='scoreB' value={scoreB} onChange={(e)=>{this.onInput(e)}}/></Col>
                                     </Row>
                                </Col>
                             </Row>
@@ -243,7 +243,7 @@ class Wall extends Component{
                                         <div key={index} style={{marginBottom:'10px'}}>
                                             <Row>
                                                 <Col span={10}>奖品名称</Col>
-                                                <Col span={14}><Input name='name' value={item.name} onChange={(e)=>{this.onExchange(e,index)}} /></Col>
+                                                <Col span={14}><Input maxLength={10} name='name' value={item.name} onChange={(e)=>{this.onExchange(e,index)}} /></Col>
                                             </Row>
                                         </div>
                                     )
@@ -259,11 +259,11 @@ class Wall extends Component{
                                                 <Col span={9}>兑换积分/分</Col>
                                                 <Col span={15}>
                                                     <Row>
-                                                        <Col span={11}><Input name='ss' value={item.ss} onChange={(e)=>{this.onExchange(e,index)}}/></Col>
+                                                        <Col span={11}><Input maxLength={7} name='ss' value={item.ss} onChange={(e)=>{this.onExchange(e,index)}}/></Col>
                                                         <Col span={2}>
                                                             <div style={{textAlign:'center'}}>-</div>
                                                         </Col>
-                                                        <Col span={11}><Input name='es' disabled={index == 2? true : false} value={item.es} onChange={(e)=>{this.onExchange(e,index)}}/></Col>
+                                                        <Col span={11}><Input maxLength={7} name='es' disabled={index == 2? true : false} value={item.es} onChange={(e)=>{this.onExchange(e,index)}}/></Col>
                                                     </Row>
                                                 </Col>
                                             </Row>

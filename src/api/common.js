@@ -8,6 +8,18 @@ const Api = {
             url:'/wall/uploadIMG',
             data:data
         })
+    },
+    updatePassword(data){
+        return _mm.POST({
+            url:'/account/accountsUpdate',
+            data:data
+        })
+    },
+    logout(data){
+        return _mm.POST({
+            url:'/login/logout_acount',
+            data
+        })
     }
 }
 export default Api;

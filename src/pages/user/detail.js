@@ -28,6 +28,7 @@ class UserDetail extends Component{
            email:'',
            admin:'',
            password:'',
+           confirmPassword:'',
            id:mm.getParam('id'),
            checked : mm.getParam('id'),
            disabled:false
@@ -63,12 +64,14 @@ class UserDetail extends Component{
         this.setState({[name]:value})    
     }
     validate(){
-        let {accountName,email,admin,password} = this.state;
+        let {accountName,email,admin,password,confirmPassword} = this.state;
         let validate = new Validate();
-        validate.add(accountName,'isUserName','账户名长度必须为7位！')
+        validate.add(accountName,'notEmpty','账户名不能为空！')
         validate.add(email,'isEmail','请输入正确的邮箱格式！')
         validate.add(admin,'notEmpty','管理员姓名不能为空！')
         validate.add(password,'notEmpty','初始密码不能为空！')
+        validate.add(confirmPassword,'notEmpty','确认密码不能为空！')
+        validate.add(password,`isSame:${confirmPassword}`,'两次输入的密码不同！')
         return validate.start();
     }
     submit(){
@@ -99,9 +102,9 @@ class UserDetail extends Component{
         })
     }
     updateUser(){
-        let {id,password,admin} = this.state;
-        api.updateUser({AID:id,password,username:admin}).then(res=>{
-            message.success('修改密码成功!')
+        let {id,password,admin,email} = this.state;
+        api.updateUser({AID:id,password,username:admin,email}).then(res=>{
+            message.success('修改账户成功!')
             this.props.history.goBack()
         }).catch(err=>{
             message.error(err)
@@ -109,7 +112,7 @@ class UserDetail extends Component{
     }
     render(){
         // console.log(type)
-        let {role,accountName,email,admin,password,disabled} = this.state;
+        let {role,accountName,email,admin,password,disabled,confirmPassword} = this.state;
         return (
             <div>
                 <Bread  breadList={this.breadList}/>
@@ -138,7 +141,7 @@ class UserDetail extends Component{
                             <Col span={3}></Col>
                             <Col span={2}>账户名:</Col>
                             <Col span={8}>
-                                <Input  disabled={disabled} name='accountName' value={accountName}  placeholder='请输入字母与数字组合的7位账户' />
+                                <Input  disabled={disabled} name='accountName' value={accountName}  placeholder='请输入账户名称' />
                             </Col>
                         </Row>
                     </div>
@@ -147,7 +150,7 @@ class UserDetail extends Component{
                             <Col span={3}></Col>
                             <Col span={2}>邮箱绑定:</Col>
                             <Col span={8}>
-                                <Input  disabled={disabled} name='email' value={email}  placeholder='请输入有效邮箱地址' />
+                                <Input name='email' value={email}  placeholder='请输入有效邮箱地址' />
                             </Col>
                         </Row>
                     </div>
@@ -156,7 +159,7 @@ class UserDetail extends Component{
                             <Col span={3}></Col>
                             <Col span={2}>管理员:</Col>
                             <Col span={8}>
-                                <Input disabled={disabled} name='admin' value={admin}  placeholder='请输入管理员姓名' />
+                                <Input name='admin' value={admin}  placeholder='请输入管理员姓名' />
                             </Col>
                         </Row>
                     </div>
@@ -165,7 +168,16 @@ class UserDetail extends Component{
                             <Col span={3}></Col>
                             <Col span={2}>初始密码:</Col>
                             <Col span={8}>
-                                <Input name='password' value={password}  placeholder='请输入初始密码' />
+                                <Input type='password' name='password' value={password}  placeholder='请输入初始密码' />
+                            </Col>
+                        </Row>
+                    </div>
+                    <div className={style.item} >
+                        <Row align='bottom' >
+                            <Col span={3}></Col>
+                            <Col span={2}>确认密码:</Col>
+                            <Col span={8}>
+                                <Input type='password' name='confirmPassword' value={confirmPassword}  placeholder='请再次输入密码' />
                             </Col>
                         </Row>
                     </div>

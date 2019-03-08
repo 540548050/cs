@@ -15,10 +15,18 @@ class Nav extends Component {
             menuTreeNode:[],
             openKeys:['/wall'],
             selectedKeys:['/'],
-            firstRender:true
+            firstRender:true,
+            //是否显示账户管理
+            isAdmin:false
         }
     }
     componentDidMount(){
+        let admin = _mm.getStorage('userInfo');
+        admin && ( admin = JSON.parse(admin));
+        let ACCOUNT = admin.ACCOUNT;
+        if(ACCOUNT == '13709031300' || ACCOUNT=='admin01'){
+            this.setState({isAdmin:true})
+        }
         // let menuTreeNode = this.renderMenu(this.getMenuConfig());
         // this.setState({menuTreeNode});
         // this.getHash();
@@ -100,12 +108,12 @@ class Nav extends Component {
         setS(key)
     }
     render() {
-        let {selectedKeys,openKeys} = this.state;
+        let {selectedKeys,openKeys,isAdmin} = this.state;
         return (
             <div className={style.navContainer}>
                 <div className={style.logoBox}>
                     <img src={logo} />
-                    <span>橙视后台管理</span>
+                    <span>橙视AR后台管理系统</span>
                 </div>
                 <Menu
                     onClick={(e)=>{this.changeBar(e)}}
@@ -131,10 +139,12 @@ class Nav extends Component {
                         <Icon type="bar-chart" />
                         <span>数据看板</span>
                     </Menu.Item>
-                    <Menu.Item key="/user">
-                        <Icon type="team" />
-                        <span>账户管理</span>
-                    </Menu.Item>
+                    {
+                        isAdmin ? <Menu.Item key="/user">
+                            <Icon type="team" />
+                            <span>账户管理</span>
+                        </Menu.Item> :null
+                    }
                 </Menu>
             </div>
         );

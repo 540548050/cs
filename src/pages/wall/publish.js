@@ -66,9 +66,15 @@ class Wall extends Component{
             btn_2 = <div>
                         <Mbtn type='0' callback={()=>{this.check(id,status)}}>查看</Mbtn>
                         <Mbtn type='1' callback={()=>{this.clickDel(id)}}>删除</Mbtn>
-                    </div>;
+                    </div>,
+            btn_3 =   <div>
+                        <Mbtn type='0' callback={()=>{this.check(id,status)}}>发布</Mbtn>
+                        <Mbtn type='1' callback={()=>{this.clickDel(id)}}>删除</Mbtn>
+                    </div>      
             if(status == '0000'){
                 btn = btn_1
+            }else if(status == '3000'){
+                btn = btn_3
             }else{
                 btn = btn_2
             }     
@@ -95,7 +101,7 @@ class Wall extends Component{
             <div>
                 <Bread breadList={this.breadList} />
                 <TableList 
-                    thead={[{width:'5%',name:' '},{width:'25%',name:'编辑人员'},{width:'25%',name:'编辑时间'},{width:'10%',name:'状态'},{width:'35%',name:'操作'}]}
+                    thead={[{width:'5%',name:' '},{width:'25%',name:'编辑人员'},{width:'20%',name:'编辑时间'},{width:'15%',name:'状态'},{width:'35%',name:'操作'}]}
                 >
                         {
                             dataList.map((item,index)=>{

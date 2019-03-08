@@ -55,7 +55,8 @@ const mm = {
     POST:function(obj){
         createLoading();
         let _this = this;
-        console.log(JSON.stringify(obj.data))
+        console.log(obj)
+        // console.log(JSON.stringify(obj.data))
         return new Promise((resolve,reject)=>{
             $.ajax({
                 url:config.server + obj.url,
@@ -314,6 +315,14 @@ const mm = {
             year = date.getFullYear(),
             month = date.getMonth()+1,
             day = date.getDate();
+        return year+'-'+month+'-'+day
+    },
+    getTimeByNumber(time,num){
+        // num为天
+        var date = new Date(time + 1000*60*60*24*num),
+        year = date.getFullYear(),
+        month = date.getMonth()+1,
+        day = date.getDate();
         return year+'-'+month+'-'+day
     },
     //替换span标签的红色标记

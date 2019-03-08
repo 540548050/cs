@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter as Router,Route,Link,Switch,NavLink,Redirect} from 'react-router-dom';
-import 'font-awesome/css/font-awesome.min.css';
-import 'antd/dist/antd.less';
+// import 'font-awesome/css/font-awesome.min.css';
+// import 'antd/dist/antd.less';
 import 'common/reset.css';
 import 'common/custom.scss';
 import { Button } from 'antd';
@@ -18,6 +18,8 @@ import Wall from 'pages/wall/router.js';
 import News from 'pages/news/router.js';
 import Data from 'pages/data/router.js';
 import User from 'pages/user/router.js';
+
+import Test from 'test/index.js';
 // import Home  from 'pages/home/index.js';
 // import FileDetail from 'components/global/fileDetail/fileDetail.js';
 // //新闻管理
@@ -62,6 +64,7 @@ class App extends Component{
 					<Route path='/news' component = {News} />
 					<Route path='/data' component = {Data} />
 					<Route path='/user' component = {User} />
+					<Route path='/test' component={Test}/>
 					<Route path='/' component = {Wall} />
 					
 					{/* <Redirect exact from='/news' to='/news/newsEdit' /> */}

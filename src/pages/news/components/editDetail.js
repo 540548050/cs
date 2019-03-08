@@ -52,7 +52,7 @@ class Wall extends Component{
     }
     componentDidMount(){
         let img = _mm.getParam('img'),
-            comment = _mm.getParam('comment')
+            comment = _mm.getParam('comment') ? _mm.getParam('comment') :'';
         if(img){
             this.setState({imgUrl:img,comment})
         }else{
@@ -130,15 +130,15 @@ class Wall extends Component{
                 </Item>
                 <Item title='AR 识别图'>
                     <div className='fl'>
-                        <img style={{width:'384px',height:'222px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
+                        <img style={{maxWidth:'384px',maxHeight:'560px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
                     </div>
                     <div className={style.sbR + ' fl'}>
-                        <Button style={{marginTop:'98px'}} type='primary' href={imgUrl?config.imgLib+'/'+imgUrl:sb_img} target='_blank'>下载</Button>
+                        <Button style={{marginTop:'98px'}} type='primary' href={imgUrl?config.imgLib+'/'+imgUrl:sb_img} target='_blank'>预览</Button>
                     </div>
                 </Item>
                 {hasQRcode ?<QRcode/>:null }
                 {
-                    checked =='0' ?<Item title='备注'>
+                    (checked =='0' && comment) ?<Item title='备注'>
                             <TextArea rows={5} value={comment}  /> 
                     </Item> : null
                 }

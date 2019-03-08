@@ -101,7 +101,7 @@ class Wall extends Component{
             <div>
                 <Bread breadList={this.breadList} />
                 <TableList 
-                    thead={[{width:'5%',name:' '},{width:'25%',name:'编辑人员'},{width:'25%',name:'编辑时间'},{width:'10%',name:'状态'},{width:'35%',name:'操作'}]}
+                    thead={[{width:'5%',name:' '},{width:'25%',name:'编辑人员'},{width:'20%',name:'编辑时间'},{width:'15%',name:'状态'},{width:'35%',name:'操作'}]}
                 >
                         {
                             dataList.map((item,index)=>{
@@ -110,7 +110,14 @@ class Wall extends Component{
                                         <td>{index+1}</td>
                                         <td>{item.op_usr}</td>
                                         <td>{item.op_time}</td>
-                                        <td style={{color:_mm.mapStatusToName(item.status).color}}>{_mm.mapStatusToName(item.status).name}</td>
+                                        <td style={{color:_mm.mapStatusToName(item.status).color}}>{
+                                            _mm.mapStatusToName(item.status).name === '待更新' ?
+                                            (<div>
+                                                <div>{_mm.mapStatusToName(item.status).name}</div>
+                                                <div style={{fontSize:'12px'}}>( 只有致和账户有更新权限 )</div>
+                                            </div>):
+                                            _mm.mapStatusToName(item.status).name
+                                        }</td>
                                         <td>{this.getBtns(item.status,item.news_id,item.news_img,item.comment)}</td>
                                     </tr>
                                 )

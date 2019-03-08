@@ -15,8 +15,8 @@ class Read extends Component{
     constructor(props){
         super(props)
         this.state = {
-            startTime:mm.getDateByTime(Date.now()),
-            endTime:mm.getTomorrowDateByTime(Date.now()),
+            startTime:mm.getTimeByNumber(Date.now(),-10),
+            endTime:mm.getDateByTime(Date.now()),
             xAxis:[],
             data:[],
             total:''
@@ -29,7 +29,7 @@ class Read extends Component{
         // let {type} = this.props;
         let type  = t !=null ? t : this.props.type;
         let {startTime,endTime} = this.state;
-        let op_code = type == '0' ? 'displaywall' :'airnews';
+        let op_code = type == '0' ? 'displaywall' : type =='1'?'slambubble':'airballoon';
         api.getBrowseData({op_code,start_time:startTime,end_time:endTime}).then(res=>{
             let xAxis = [];
             let data = res.map((item)=>{

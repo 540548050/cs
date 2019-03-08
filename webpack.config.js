@@ -5,7 +5,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 let WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
 // publicPath = '../../';
 module.exports = {
-	entry: './src/app.js',
+	entry: {
+		app:'./src/app.js',
+		vendor:['react','react-router-dom','react-dom','react-redux','react-cropper','echarts-for-react']
+	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/[name].[chunkHash:5].js',
@@ -25,7 +28,7 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: ['env','react','stage-2'],
-						plugins: [["import", { "libraryName": "antd" ,"style": true }]]
+						plugins: [["import", { "libraryName": "antd" , libraryDirectory:'es',"style": true }]]
 					}
 				}
 			},
@@ -34,7 +37,7 @@ module.exports = {
 				exclude:/(node_modules|antd\.css)/,
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
-					use: "css-loader?modules&localIdentName=[name]-[hash:base64:5]"
+					use: ["css-loader?modules&localIdentName=[name]-[hash:base64:5]"]
 				})
 			 },
 			 {
@@ -50,7 +53,7 @@ module.exports = {
 						include:/(node_modules|antd\.css)/,
 		        use: ExtractTextPlugin.extract({
 		          fallback: "style-loader",
-		          use: "css-loader"
+		          use: ["css-loader"]
 		        })
 		   },
 		   {
@@ -74,8 +77,9 @@ module.exports = {
 													"primary-color":"#F4A12F"
 											},
 											javascriptEnabled: true
+									}
 							}
-					}]
+					]
 				},
 	     	{
 		        test: /\.(png|jpg|gif)$/,
@@ -101,7 +105,6 @@ module.exports = {
 		          }
 		        ]
 		    }
-		    
 		]
 	},
 	resolve:{
@@ -114,7 +117,8 @@ module.exports = {
 			api				 : path.resolve(__dirname,'src/api'),
 			images 		 : path.resolve(__dirname,'src/images'),
 			// config 		 : path.resolve(__dirname,'src/config'),
-			base       : path.resolve(__dirname,'src')
+			base       : path.resolve(__dirname,'src'),
+			test			 : path.resolve(__dirname,'test')
 		}
 	},
 	devServer: {
@@ -122,7 +126,7 @@ module.exports = {
 			 historyApiFallback:{
 				index:'/dist/index.html'
 			},
-			host:'192.168.0.37'
+			host:'0.0.0.0'
   },
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -131,9 +135,13 @@ module.exports = {
 		}),
 		new ExtractTextPlugin("css/[name].[chunkHash:5].css"),
 		//提出公共模块
+		// new webpack.optimize.CommonsChunkPlugin({
+		// 	name:'common',
+		// 	filename:'js/base.[chunkHash:5].js'
+		// }),
 		new webpack.optimize.CommonsChunkPlugin({
-			name:'common',
-			filename:'js/base.[chunkHash:5].js'
+			names:['vendor','runtime'],
+			filename:'js/[name].[chunkHash].js'
 		})
 	]
 };

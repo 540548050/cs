@@ -11,8 +11,8 @@ class Data extends Component{
         super(props)
         this.state = {
             type:'0',
-            wallStartTime:mm.getDateByTime(Date.now()),
-            wallEndTime:mm.getTomorrowDateByTime(Date.now()),
+            wallStartTime:mm.getTimeByNumber(Date.now(),-10),
+            wallEndTime:mm.getDateByTime(Date.now()),
             //展示墙数据
             data:{}
         }
@@ -55,10 +55,15 @@ class Data extends Component{
                     confirmTime = {()=>{this.confirmTime()}}
                 >
                     <TableList 
-                    thead={[{width:'11.11%',name:'排名'},{width:'11.11%',name:'1'},{width:'11.11%',name:'2'},{width:'11.11%',name:'3'},{width:'11.11%',name:'4'},{width:'11.11%',name:'5'},{width:'11.11%',name:'6'},{width:'11.11%',name:'7'},{width:'11.11%',name:'8'}]}
+                    thead={[{width:'9.1%',name:'排名'},{width:'9.1%',name:'1'},
+                    {width:'9.1%',name:'2'},{width:'9.1%',name:'3'},{width:'9.1%',name:'4'},
+                    {width:'9.1%',name:'5'},{width:'9.1%',name:'6'},{width:'9.1%',name:'7'},
+                    {width:'9.1%',name:'8'},{width:'9.1%',name:'9'},{width:'9.1%',name:'10'}]}
                      >
                         <tr>
                             <td style={{background:'#F4A12F',color:'#fff'}}>栏目</td>
+                            <td>智慧街道</td>
+                            <td>智慧党建</td>
                             <td>文化E管家</td>
                             <td>市县媒体</td>
                             <td>花儿剧场</td>
@@ -70,10 +75,12 @@ class Data extends Component{
                         </tr>
                         <tr>
                             <td style={{background:'#F4A12F',color:'#fff'}}>浏览量</td>
+                            <td>{data.Street}</td>
+                            <td>{data.partybuilding}</td>
                             <td>{data.culturalsteward}</td>
                             <td>{data.mediacenter}</td>
                             <td>{data.flower}</td>
-                            <td>{data.argame}</td>
+                            <td>{data.airballoon}</td>
                             <td>{data.selectedtopic}</td>
                             <td>{data.livebroadcast}</td>
                             <td>{data.candu}</td>

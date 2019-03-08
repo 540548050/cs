@@ -86,17 +86,23 @@ class Login extends Component{
             this.setState({errorMsg:err})
         })
     }
+    onKeyDown(e){
+        let code = e.keyCode;
+        if(code == 13){
+            this.onSubmit()
+        }
+    }
     render(){
         let {userName,passWrod,errorMsg} = this.state;
         return(
-            <div className={style.container}>
+            <div className={style.container} onKeyDown={(e)=>{this.onKeyDown(e)}}>
                 <div className={style.lf}>
                     <img src={bg} alt=""/>
                 </div>
                 <div className={style.lr}>
                     <div className={style.logo}>
                         <img src={logo} alt=""/>
-                        <div>城市后台管理系统</div>
+                        <div>橙视AR后台管理系统</div>
                     </div>
                     <div className={style.error}>{errorMsg}</div>
                     <div className={style.item}>
@@ -121,7 +127,7 @@ class Login extends Component{
                         />
                     </div>
                     <div className={style.item + ' ' + style.itemP}>
-                        <Button block={true} size='large' onClick={()=>{this.onSubmit()}} type="primary">登陆</Button>
+                        <Button block={true} size='large' onClick={()=>{this.onSubmit()}} type="primary">登录</Button>
                     </div>
                 </div>
             </div>

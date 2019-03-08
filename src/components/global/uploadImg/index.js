@@ -18,46 +18,7 @@ class UploadImg extends Component{
             initBase64:''
         }
     }
-    upload(e){
-        let _this = this;
-        let file = e.target.files[0];
-        let msg = _mm.checkFile(file,['jpg','jpeg','png','gif'],10);
-        if(!msg.status){
-            message.error(msg.message);
-        }else{
-            _mm.fileToBase64(file,function(data){
-                _this.setState({
-                    initBase64:data,
-                    imgBase64:data
-                })
-            });
-        }
-    }
-    _crop(){
-        let imgBase64 = this.cropper.getCroppedCanvas().toDataURL();
-       this.setState({
-            imgBase64
-       })
-    }
-    ok(){
-        let {imgBase64} = this.state;
-        if(!imgBase64){
-            message.error('请先选择图片！')
-        }else{
-            commonApi.uploadImg({
-                    data:imgBase64
-                }).then(res=>{
-                    this.props.getUrl(res,this.props.index);
-                    this.setState({
-                        modalShow:false,
-                        imgBase64:'',
-                        initBase64:''
-                    })
-                }).catch(err=>{
-                    message.error(err);
-                })
-        }
-    }
+    
     render(){
         let {modalShow,imgBase64,initBase64} = this.state;
         return (

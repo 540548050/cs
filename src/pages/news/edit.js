@@ -6,7 +6,7 @@ import style from './index.scss';
 import Chunk from 'components/global/chunk';
 import Detail from './components/editDetail.js';
 import Bread from 'components/global/bread';
-import UploadImg from 'components/global/uploadImg';
+import UploadBtn from 'components/global/uploadBtn';
 import Btns from 'components/global/btns'
 import config from 'base/config.json';
 import api from 'api/news.js';
@@ -65,11 +65,12 @@ class Wall extends Component{
                 </Item>
                 <Item title='AR 识别图'>
                     <div className='fl'>
-                        <img style={{width:'384px',height:'222px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
+                        <img style={{maxWidth:'384px',maxHeight:'560px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
                     </div>
                     <div className={style.sbR + ' fl'}>
                         <div style={{marginTop:'98px'}}>
-                            <UploadImg getUrl={(res)=>{this.setState({imgUrl:res})}}/>
+                            <UploadBtn callback={(res)=>{this.setState({imgUrl:res})}}/>
+                            {/* <UploadImg getUrl={(res)=>{this.setState({imgUrl:res})}}/> */}
                         </div>
                     </div>
                 </Item>

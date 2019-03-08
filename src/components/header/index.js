@@ -4,7 +4,8 @@ import { Menu, Icon,Dropdown,Modal,Row, Col ,Input,message} from 'antd';
 import {Link} from 'react-router-dom';
 import _mm from 'util/mm.js';
 // import Logo from 'images/nlogo.png';
-// import Validate from 'util/validate';
+import Validate from 'util/validate';
+import api from 'api/common.js';
 // import userApi from 'api/user/index.js'
 // import { connect } from 'react-redux';
 const SubMenu = Menu.SubMenu;
@@ -22,7 +23,8 @@ class Header extends Component {
       confirmPassword:'',
       oldPassword:'',
       //提示密码修改
-      pwdShow:false
+      pwdShow:false,
+      account:''
     }
   }
   componentWillMount(){
@@ -54,22 +56,28 @@ class Header extends Component {
     let admin = _mm.getStorage('userInfo');
     admin && ( admin = JSON.parse(admin))
     this.setState({
-      userName:admin.USERNAME?admin.USERNAME:'未登陆'
+      userName:admin.USERNAME?admin.USERNAME:'未登陆',
+      account:admin.ACCOUNT?admin.ACCOUNT:''
     })
   }
   logout(){
     // _mm.removeStorage('token');
-    _mm.removeStorage('userInfo');
-    this.props.history.push('/login');
+    api.logout({name:'123'}).then(res=>{
+      _mm.removeStorage('userInfo');
+      this.props.history.push('/login');
+    }).catch(err=>{
+      message.error(err);
+    })
   }
   updatePassWord(){
     let msg = this.validate();
-    let {confirmPassword,oldPassword} = this.state;
+    let {confirmPassword,oldPassword,account} = this.state;
     this.setState({errorMsg:msg})
     if(!msg){
-      userApi.updatePassword({
-        number:confirmPassword,
-        initialPassword:oldPassword
+      api.updatePassword({
+        account,
+        oldpassword:oldPassword,
+        password:confirmPassword
       }).then(res=>{
         message.success('修改密码成功！');
         this.setState({modalShow:false},()=>{
@@ -111,7 +119,7 @@ class Header extends Component {
     );
     return (
       <div className = {style.headerContainer}>
-        {/* <Modal
+        <Modal
           title="修改密码"
           visible={this.state.modalShow}
           onOk={()=>{this.updatePassWord()}}
@@ -157,7 +165,7 @@ class Header extends Component {
                 </Col>
               </Row>
           </div>
-        </Modal> */}
+        </Modal>
         {/* <div className={style.left}>
           AR展示墙
         </div> */}
@@ -165,7 +173,7 @@ class Header extends Component {
           <ul>
             <li>账户：{userName}</li>
             <li>
-              <a >修改密码</a>
+              <a onClick={()=>{this.setState({modalShow:true})}}>修改密码</a>
             </li>
             <li style={{fontSize:'20px'}}>
               <a onClick={()=>{this.logout()}}>

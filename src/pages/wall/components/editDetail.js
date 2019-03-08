@@ -183,10 +183,10 @@ class Wall extends Component{
                 </Item>
                 <Item title='AR 识别图'>
                     <div className='fl'>
-                        <img style={{width:'384px',height:'222px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
+                        <img style={{maxWidth:'384px',maxHeight:'560px'}} src={imgUrl?config.imgLib+'/'+imgUrl:sb_img}/>
                     </div>
                     <div className={style.sbR + ' fl'}>
-                        <Button style={{marginTop:'98px'}} type='primary' href={imgUrl?config.imgLib+'/'+imgUrl:sb_img} target='_blank'>下载</Button>
+                        <Button style={{marginTop:'98px'}} type='primary' href={imgUrl?config.imgLib+'/'+imgUrl:sb_img} target='_blank'>预览</Button>
                     </div>
                 </Item>
                 <Item title='游戏设置'>
@@ -195,17 +195,17 @@ class Wall extends Component{
                             <div className={style.yxF + ' clearfix'}>
                                 <div className={style.yxFT}>
                                     <div className={style.score}>
-                                        <div style={{backgroundColor:'#3153B7'}}>气球A</div>
+                                        <div style={{backgroundColor:'#E94C2F'}}>气球红</div>
                                         <div>{scoreA}</div>
                                         <div>积分</div>
                                     </div>
                                     <div className={style.score}>
-                                        <div style={{backgroundColor:'#E94C2F'}}>气球B</div>
+                                        <div style={{backgroundColor:'#F4A12F'}}>气球黄</div>
                                         <div>{scoreB}</div>
                                         <div>积分</div>
                                     </div>
                                     <div className={style.score}>
-                                        <div style={{backgroundColor:'#F4A12F'}}>游戏时长</div>
+                                        <div style={{backgroundColor:'#3153B7'}}>游戏时长</div>
                                         <div>{time}</div>
                                         <div>S</div>
                                     </div>
@@ -242,7 +242,7 @@ class Wall extends Component{
                                 <Row>
                                     <Col span={8}>
                                         <div>
-                                            <img src={yx_img_2} style={{width:'170px',height:'304px'}}/>
+                                            <img src={yx_img_1} style={{width:'170px',height:'304px'}}/>
                                         </div>
                                     </Col>
                                     <Col span={8}>
@@ -252,7 +252,7 @@ class Wall extends Component{
                                     </Col>
                                     <Col span={8}>
                                         <div>
-                                            <img src={yx_img_2} style={{width:'170px',height:'304px'}}/>
+                                            <img src={yx_img_3} style={{width:'170px',height:'304px'}}/>
                                         </div>
                                     </Col>
                                 </Row>
@@ -262,7 +262,7 @@ class Wall extends Component{
                 </Item>
                 {hasQRcode ?<QRcode/>:null }
                 {
-                    checked =='0' ?<Item title='备注'>
+                    (checked =='0' && comment)?<Item title='备注'>
                             <TextArea rows={5} value={comment}  /> 
                     </Item> : null
                 }

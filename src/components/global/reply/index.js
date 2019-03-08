@@ -41,7 +41,7 @@ class Reply extends Component{
 }
 Reply.defaultProps = {
     status:-1,
-    content:'',
+    detail:'',
     okText:'通过',
     noText:'不通过'
 }
